@@ -2,7 +2,7 @@
 
 A web-based Mahjong-inspired **Higher or Lower** betting game built with React. This project focuses on scalable architecture, clean state management, and future-ready extensibility.
 
-# Video link explain Hand Betting Game
+# explaining Hand Betting Game (video link)
 
 https://drive.google.com/drive/folders/1N9UMzJ9sdHwN9mv1bo73Us10KtoBNUJX?usp=drive_link
 
