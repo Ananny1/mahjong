@@ -5,15 +5,11 @@ import Leaderboard from "./components/Leaderboard";
 
 function App() {
   const [screen, setScreen] = useState("landing");
-  const [scores, setScores] = useState([]);
-
-  // Load scores from localStorage on first render
-  useEffect(() => {
+  const [scores, setScores] = useState(() => {
+    // Initialize from localStorage immediately
     const savedScores = localStorage.getItem("mahjong-scores");
-    if (savedScores) {
-      setScores(JSON.parse(savedScores));
-    }
-  }, []);
+    return savedScores ? JSON.parse(savedScores) : [];
+  });
 
   // Save scores whenever they change
   useEffect(() => {
@@ -35,7 +31,14 @@ function App() {
         <Game
           onHome={() => setScreen("landing")}
           onGameOver={(finalScore) => {
-            setScores((prev) => [...prev, finalScore]);
+            console.log("Saving score:", finalScore);
+
+            setScores((prev) => {
+              const updated = [...prev, finalScore];
+              console.log("Updated scores:", updated);
+              return updated;
+            });
+
             setScreen("landing");
           }}
         />

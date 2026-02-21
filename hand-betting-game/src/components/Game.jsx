@@ -2,7 +2,7 @@ import { useState } from "react";
 import { createInitialGameState, processBet } from "../game/engine";
 import Tile from "./Tile";
 import GameOver from "./GameOver";
-// import History from "./History";
+import History from "./History";
 
 
 export default function Game({ onHome, onGameOver }) {
@@ -16,11 +16,9 @@ export default function Game({ onHome, onGameOver }) {
         const result = processBet(gameState, direction);
 
         if (result.gameOver) {
-            onGameOver(gameState.score);
             setGameOverInfo(result);
             return;
         }
-
         setGameState(result.state);
     }
 
@@ -34,8 +32,9 @@ export default function Game({ onHome, onGameOver }) {
                     setGameState(createInitialGameState());
                     setGameOverInfo(null);
                 }}
-
-                onHome={() => onGameOver(gameState.score)}
+                onHome={() => {
+                    onGameOver(gameState.score);
+                }}
             />
         );
     }
@@ -69,14 +68,6 @@ export default function Game({ onHome, onGameOver }) {
                 <span>Discard Pile: {discardPile.length}</span>
             </div>
 
-           {/* {gameState.history.length === 0 && (<>
-           <div>
-            no bets yet
-           </div>
-           </>)} */}
-
-
-
             {/* Buttons */}
             <div className="flex gap-4">
                 <button
@@ -101,6 +92,11 @@ export default function Game({ onHome, onGameOver }) {
             >
                 Exit to Home
             </button>
+
+            {/* History */}
+            {gameState.history.length > 0 && (
+                <History history={gameState.history} />
+            )}
         </div>
     );
 }

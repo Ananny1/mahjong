@@ -98,7 +98,9 @@ function resolveBet(state, direction) {
         (direction === "lower" && nextTotal < currentTotal);
 
     const newCombo = didWin ? combo + 1 : 0;
+
     const points = didWin ? newCombo * POINTS.baseWin : 0;
+
     const newScore = score + points;
 
     const scalingResult = applyDynamicScaling(
@@ -118,21 +120,23 @@ function resolveBet(state, direction) {
         },
     ];
 
-    return {
-        gameOver: false,
-        state: {
-            hand: nextHand,
-            drawPile: newDrawPile,
-            discardPile: [...discardPile, ...hand],
-            dynamicValues: scalingResult.dynamicValues,
-            score: newScore,
-            combo: newCombo,
-            history: newHistory,
-            refills,
-            // prevState: [...state.prevState, snapshot]
-        },
-    };
+
+        return {
+            gameOver: false,
+            state: {
+                hand: nextHand,
+                drawPile: newDrawPile,
+                discardPile: [...discardPile, ...hand],
+                dynamicValues: scalingResult.dynamicValues,
+                score: newScore,
+                combo: newCombo,
+                history: newHistory,
+                refills,
+                // prevState: [...state.prevState, snapshot]
+            },
+        };
 }
+
 
 function applyDynamicScaling(hand, dynamicValues, didWin) {
     const newDynamicValues = { ...dynamicValues };
